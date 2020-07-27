@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace></RootNamespace>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
+    <PackageReference Include="TeklaTeddsAddIn" Version="22.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="echo Query Tedds version&#xD;&#xA;for /f &quot;tokens=3*&quot; %25%25A in ('reg query HKLM\Software\Tekla\Structural\Tedds /ve /reg:32') do set TeddsVer=%25%25A&#xD;&#xA;if '%25TeddsVer%25'=='' (&#xD;&#xA;	echo Failed to find Tedds version&#xD;&#xA;	goto :eof&#xD;&#xA;)&#xD;&#xA;echo TeddsVer='%25TeddsVer%25'&#xD;&#xA;&#xD;&#xA;echo Query Tedds application folder&#xD;&#xA;for /f &quot;tokens=3*&quot; %25%25A in ('reg query HKLM\Software\Tekla\Structural\Tedds\%25TeddsVer%25 /v AppPath /reg:32') do set TeddsApp=%25%25A&#xD;&#xA;if '%25TeddsApp%25'=='' (&#xD;&#xA;	echo Failed to find Tedds application folder&#xD;&#xA;	goto :eof&#xD;&#xA;)&#xD;&#xA;echo TeddsApp='%25TeddsApp%25'&#xD;&#xA;&#xD;&#xA;echo Query Tedds application data folder&#xD;&#xA;for /f &quot;tokens=3*&quot; %25%25A in ('reg query HKLM\Software\Tekla\Structural\Tedds\%25TeddsVer%25 /v TeddsAppData /reg:32') do set TeddsData=%25%25A&#xD;&#xA;if '%25TeddsData%25'=='' (&#xD;&#xA;	echo Failed to find Tedds application data folder&#xD;&#xA;	goto :eof&#xD;&#xA;)&#xD;&#xA;echo TeddsData='%25TeddsData%25'&#xD;&#xA;&#xD;&#xA;echo.&#xD;&#xA;&#xD;&#xA;echo Copy $(TargetFileName) to %25TeddsApp%25&#xD;&#xA;copy $(TargetPath) %25TeddsApp%25&#xD;&#xA;&#xD;&#xA;echo Generate $(TargetName).addin&#xD;&#xA;set AddinPath=%25TeddsData%25\AddIns\$(TargetName).addin&#xD;&#xA;&#xD;&#xA;rem 1st line is full path of addin assembly&#xD;&#xA;rem unless assembly is same name as .addin file, located in Tedds application directory&#xD;&#xA;echo.&gt; %25AddinPath%25&#xD;&#xA;&#xD;&#xA;rem Subsequent lines are fully qualified type names&#xD;&#xA;echo AddIns.DBaseAddIn&gt;&gt; %25AddinPath%25&#xD;&#xA;&#xD;&#xA;echo %25AddinPath%25" />
+  </Target>
+
+</Project>
