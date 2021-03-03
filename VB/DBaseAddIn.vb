@@ -2,7 +2,7 @@
 Imports System.Data.SqlServerCe
 Imports System.Windows.Forms
 
-Imports CSCWorld.Tedds.ExprInterop
+Imports Tekla.Structural.ExpressoAddIn
 
 Namespace AddIns
 
@@ -136,7 +136,7 @@ Namespace AddIns
         'Return :       False = Unable to set length
         '                True = Update successful
         '==================================================================================================================================
-        <CSCWorld.Tedds.ExprInterop.Alias("DBaseSet")>
+        <AliasAttribute("DBaseSet")>
         Public Function DBaseSetLength(table As String, column As String, <Units("m")> length As Double, whereColumn As String, whereValue As Object) As Boolean
             DBaseSetLength = Update(table, column, length, whereColumn, whereValue)
         End Function
@@ -149,7 +149,7 @@ Namespace AddIns
         'Return :       False = Unable to set force
         '                True = Update successful
         '==================================================================================================================================
-        <CSCWorld.Tedds.ExprInterop.Alias("DBaseSet")>
+        <AliasAttribute("DBaseSet")>
         Public Function DBaseSetForce(table As String, column As String, <Units("N")> force As Double, whereColumn As String, whereValue As Object) As Boolean
             DBaseSetForce = Update(table, column, force, whereColumn, whereValue)
         End Function

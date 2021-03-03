@@ -2,7 +2,7 @@
 using System.Data.SqlServerCe;
 using System.Windows.Forms;
 
-using CSCWorld.Tedds.ExprInterop;
+using Tekla.Structural.ExpressoAddIn;
 
 namespace AddIns
 {
