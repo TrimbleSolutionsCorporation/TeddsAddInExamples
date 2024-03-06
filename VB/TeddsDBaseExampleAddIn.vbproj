@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.Compact" Version="4.0.8876.1" />
-    <PackageReference Include="TeklaTeddsAddIn" Version="24.1.0" />
+    <PackageReference Include="TeklaTeddsAddIn" Version="26.0.0" />
   </ItemGroup>
 
   <ItemGroup>
